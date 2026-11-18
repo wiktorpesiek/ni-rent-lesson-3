@@ -86,7 +86,7 @@ class Bill(BaseModel):
 class ApartmentSettlement(BaseModel):
     """Miesięczne rozliczenie mieszkania: suma czynszów, suma rachunków
     oraz kwota pozostała do uregulowania za dany rok i miesiąc."""
-    apart: str
+    apartment: str
     year: int
     month: int
     total_rent_pln: float
