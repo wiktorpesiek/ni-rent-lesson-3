@@ -83,6 +83,17 @@ class Bill(BaseModel):
         return [Bill(**bill) for bill in data]
 
 
+class ApartmentSettlement(BaseModel):
+    """Miesięczne rozliczenie mieszkania: suma czynszów, suma rachunków
+    oraz kwota pozostała do uregulowania za dany rok i miesiąc."""
+    apartment: str
+    year: int
+    month: int
+    total_rent_pln: float
+    total_bills_pln: float
+    total_due_pln: float
+
+
 class Manager:
     def __init__(self, parameters: Parameters):
         self.parameters = parameters 
