@@ -119,37 +119,42 @@ if __name__ == '__main__':
     print('=' * 72)
     print('MIESZKANIA')
     print('=' * 72)
-    print(f"{'Klucz':<16}{'Nazwa':<14}{'Adres':<20}{'Powierzchnia':>14}")
-    print('-' * 72)
     for apartment in manager.apartments.values():
-        print(f"{apartment.key:<16}{apartment.name:<14}{apartment.location:<20}{apartment.area_m2:>11.2f} m2")
+        print(f"[Mieszkanie] {apartment.name} ({apartment.key})")
+        print(f"    {'Adres:':<14}{apartment.location}")
+        print(f"    {'Powierzchnia:':<14}{apartment.area_m2:.2f} m2")
 
         print()
-        print(f"  Pokoje w {apartment.key}:")
-        print(f"  {'Nazwa pokoju':<20}{'Powierzchnia':>14}")
+        print(f"    {'Pokoje':<24}{'Powierzchnia':>14}")
+        print('    ' + '-' * 38)
         for room in apartment.rooms.values():
-            print(f"  {room.name:<20}{room.area_m2:>11.2f} m2")
+            print(f"    {'Pokój: ' + room.name:<24}{room.area_m2:>11.2f} m2")
 
         print()
-        print(f"  Rachunki dla {apartment.key}:")
-        print(f"  {'Typ':<14}{'Okres':<10}{'Termin':<14}{'Kwota':>16}")
+        print(f"    {'Rachunki':<24}{'Okres':<10}{'Termin':<14}{'Kwota':>16}")
+        print('    ' + '-' * 64)
         for bill in manager.bills:
             if bill.apartment == apartment.key:
                 period = f"{bill.settlement_year}-{bill.settlement_month:02d}"
-                print(f"  {bill.type:<14}{period:<10}{bill.date_due:<14}{bill.amount_pln:>12.2f} PLN")
+                print(f"    {'Rachunek: ' + bill.type:<24}{period:<10}{bill.date_due:<14}{bill.amount_pln:>12.2f} PLN")
         print()
 
     print('=' * 72)
     print('NAJEMCY')
     print('=' * 72)
-    print(f"{'Najemca':<12}{'Mieszkanie':<16}{'Pokój':<16}{'Czynsz':>14}{'Kaucja':>14}")
-    print('-' * 72)
     for tenant in manager.tenants.values():
-        print(f"{tenant.name:<12}{tenant.apartment:<16}{tenant.room:<16}{tenant.rent_pln:>10.2f} PLN{tenant.deposit_pln:>10.2f} PLN")
-        print(f"  Umowa: {tenant.date_agreement_from} - {tenant.date_agreement_to}")
-        print(f"  {'Data przelewu':<16}{'Okres':<10}{'Kwota':>16}")
+        print(f"[Najemca] {tenant.name}")
+        print(f"    {'Mieszkanie:':<12}{tenant.apartment}")
+        print(f"    {'Pokój:':<12}{tenant.room}")
+        print(f"    {'Czynsz:':<12}{tenant.rent_pln:>10.2f} PLN")
+        print(f"    {'Kaucja:':<12}{tenant.deposit_pln:>10.2f} PLN")
+        print(f"    {'Umowa:':<12}{tenant.date_agreement_from} - {tenant.date_agreement_to}")
+
+        print()
+        print(f"    {'Przelewy':<24}{'Okres':<10}{'Kwota':>16}")
+        print('    ' + '-' * 50)
         for transfer in manager.transfers:
             if transfer.tenant == tenant.name:
                 period = f"{transfer.settlement_year}-{transfer.settlement_month:02d}"
-                print(f"  {transfer.date:<16}{period:<10}{transfer.amount_pln:>12.2f} PLN")
+                print(f"    {'Przelew: ' + transfer.date:<24}{period:<10}{transfer.amount_pln:>12.2f} PLN")
         print()
